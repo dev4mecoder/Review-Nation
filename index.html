@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="./style.css">
     <link rel="shortcut icon" href="logo.png">
     <script src="https://kit.fontawesome.com/02f3e88b73.js" crossorigin="anonymous"></script>
+    <meta name="google-site-verification" content="UK-uEag9p-zMZ8YMGsRlE1S6t5WScuu42kJCg7EDYKo" />
 </head>
 
 <body id="body">
@@ -21,16 +22,24 @@
             <a class="nav-item" target="_self" href="signup.html" class="right">Signup</a>
             <img src="logo.png" href="developers.html" class="logo">
         </div>
+        <video autoplay muted loop id="myVideo">
+            <source src="Untitled design.mp4" type="video/mp4">
+        </video>
         <div class="content-container parallax" id="content-c">
             <img class="main-logo" src="logo.png">
             <div class="content">
                 <div class="disclaimer-wrap">
                     <h3 class="disclaimer">DISCLAIMER</h3>
-                    <p class="disclaimer">Search function is under development</p>
+                    <p class="disclaimer">Search function is under development, and as a result will bring a Google.com redirect</p>
                 </div>
             </div>
-            <input class="content main-search" style="margin-top: 0;" id="mainSearch"
-                placeholder="Search Review Nation">
+            <div class="searchbar">
+                <input class="content" style="width: 100%; margin: 0; margin-right: 4px;" id="main-search" placeholder="Search Review Nation">
+                <button id="search-btn" class="general-btn" onclick="search()">Search</button>
+            </div>
+            <div class="searchbar">
+
+                </div>
         </div>
         <footer>
             <p class="beta" title="This website is currently in its beta testing version" id="betablink">BETA TESTING
@@ -47,7 +56,7 @@
                 their related reviews.</p>
         </footer>
         <script>
-            let products = [];//list of products
+            let products = ['Review Nation'];//list of products
                 start();
             function start() {
                 setTimeout(() => {
@@ -67,8 +76,18 @@
                     search();
                 }
             });
+            function createOption(){
+                var o = document.createElement('option');
+            }
             function search() {
-
+                let url = document.getElementById('main-search').value;
+                while(url.includes(' ')){
+                    url = url.replace(' ', '%20');
+                }
+                while(url.includes('+')){
+                    url = url.replace('+', '%2B');
+                }
+                window.open(`https://google.com/search?q=${url}`);
             }
         </script>
 </body>
