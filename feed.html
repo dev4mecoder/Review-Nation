@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Review Nation</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="shortcut icon" href="logo.png">
+    <!----soon to be the official logo-->
+</head>
+    <body>
+        <a name="top"></a>
+        <div class="navbar" id="navbar">
+            <a class="nav-item" target="_self" href="/index.html">Home</a>
+            <a class="nav-item" target="_self" href="/about.html">About</a>
+            <a class="nav-item active" target="_self" href="/feed.html">Product Feed</a>
+            <a class="nav-item" target="_self" href="/developers.html" class="right">Developers</a>
+            <a class="nav-item" target="_self" href="/travelfromhome.html" class="right">Exclusive!</a>
+            <a class="nav-item" target="_self" id="name" href="/reviewnation.html">Review Nation</a>
+            <a class="nav-item" target="_self" href="/login.html" class="right">Log In</a>
+            <a class="nav-item" target="_self" href="/signup.html" class="right">Signup</a>
+            <img src="logo.png" href="developers.html" class="logo">
+        </div>
+        <div class="content-container parallaxfour" id="content-c">
+            <div class="content">
+                <div class="disclaimer-wrap">
+                    <strong>
+                        <p class="disclaimer">DISCLAIMER</p>
+                    </strong>
+                    <p class="disclaimer">Because of the lack in traffic, this site has been simplified
+                    </p>
+                </div>
+            </div>
+            <div class="content">
+                <p class="saving-txt" id="savingTxt"></p>
+                <div style="display: flex; flex-direction: column;">
+                    <textarea class="text-input" rows="3" cols="30" id="input1"></textarea>
+                    <button class="general-btn" style="margin-bottom: 0; margin-top: 25px;" onclick="addElement();">Post</button>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <p class="beta" title="This website is currently in its beta testing version" id="betablink">BETA
+                TESTING</p>
+            <a id="link-no-style" href="#top"><button class="general-btn">top of page</button></a>
+            <div class="footer-row">
+                <div class="footer-column">
+                    <a class="footer-link" href="/patchnotes.html">Patch Notes</a>
+                    <a class="footer-link" href="/apache.html">License</a>
+                </div>
+            </div>
+            <p id="footer-text" style="margin: 5px">&copy;Review Nation 2021 under Apache 2.0. The logo affiliated
+                with Review Nation is trademarked. Review Nation is not responsible for user-posted content of
+                products and their related reviews.</p>
+        </footer>
+        <script>
+            let itemCounter = 0;
+            let hasPosted = false;
+            let waitingForCookie = false;
+
+            let posts = [];
+
+            function newContent(num, text) {
+                var post = { postNum: num, postText: text, liked: false, disliked: false };
+                posts.push(post);
+
+                //creates thumbs down img
+                let thumbsdown = document.createElement('img');
+                thumbsdown.src = 'thumbsdown.png';
+                thumbsdown.classList.add('option');
+                if(getCookie(`post${num}disliked`) != ''){
+                    if(getCookie(`post${num}disliked`) == 'true'){
+                        thumbsdown.classList.add('option-active');
+                    }
+                }
+                thumbsdown.id = 'ds' + num;
+                thumbsdown.addEventListener('click', function (e) {
+                    if (!document.getElementById(e.target.id).classList.contains('option-active') && !document.getElementById('l' + e.target.id.toString().slice(2)).classList.contains('option-active')) {//if dislike button is unactive and like button is unactive
+
+                        document.getElementById(e.target.id).classList.add('option-active');
+                        document.getElementById('l' + e.target.id.toString().slice(2)).classList.remove('option-active');
+
+                        //--------------->
+                        posts[parseInt(e.target.id.toString().slice(2))].disliked = true;
+                        //--------------->
+
+                        document.cookie = `post${itemCounter}disliked=true;`;
+                        document.cookie = `post${itemCounter}liked=false;`;
+
+                    } else if (!document.getElementById(e.target.id).classList.contains('option-active') && document.getElementById('l' + e.target.id.toString().slice(2)).classList.contains('option-active')) {
+
+                        document.getElementById(e.target.id).classList.add('option-active');
+                        document.getElementById('l' + e.target.id.toString().slice(2)).classList.remove('option-active');
+
+                        //--------------->
+                        posts[parseInt(e.target.id.toString().slice(2))].disliked = true;
+                        posts[parseInt(e.target.id.toString().slice(2))].liked = false;
+                        //--------------->
+
+                        document.cookie = `post${itemCounter}disliked=true;`;
+                        document.cookie = `post${itemCounter}liked=false;`;
+
+                    } else {
+
+                        document.getElementById(e.target.id).classList.remove('option-active');
+
+                        //--------------->
+                        posts[parseInt(e.target.id.toString().slice(2))].disliked = false;
+                        //--------------->
+
+                        document.cookie = `post${itemCounter}disliked=false;`;
+                        document.cookie = `post${itemCounter}liked=false;`;
+
+                    }
+
+                    if (posts[num].disliked == true) {
+                        document.cookie = `post${num}disliked=true;`;
+                        document.cookie = `post${num}liked=false`;
+                        console.log(`disliked: ${getCookie(`post${num}disliked`)}`);
+                        console.log(`liked: ${getCookie(`post${num}liked`)}`);
+                    } else {
+                        document.cookie = `post${num}disliked=false;`;
+                        console.log(`disliked: ${getCookie(`post${num}disliked`)}`);
+                        console.log(`liked: ${getCookie(`post${num}liked`)}`);
+                    }
+
+                });
+
+                //creates thumbs up img
+                let thumbsup = document.createElement('img');
+                thumbsup.src = 'thumbsup.png';
+                thumbsup.classList.add('option');
+                if(getCookie(`post${num}liked`) != ''){
+                    if(getCookie(`post${num}liked`) == 'true'){
+                        thumbsup.classList.add('option-active');
+                    }
+                }
+                thumbsup.id = 'l' + num;
+                thumbsup.addEventListener('click', function (e) {
+                    if (!document.getElementById(e.target.id).classList.contains('option-active') && !document.getElementById('ds' + e.target.id.toString().slice(1)).classList.contains('option-active')) {
+
+                        document.getElementById(e.target.id).classList.add('option-active');
+                        document.getElementById('ds' + e.target.id.toString().slice(1)).classList.remove('option-active');
+
+                        //--------------->
+                        posts[parseInt(e.target.id.toString().slice(1))].liked = true;
+                        //--------------->
+
+                        document.cookie = `post${itemCounter}liked=true;`;
+                        document.cookie = `post${itemCounter}disliked=false;`;
+
+                    } else if (!document.getElementById(e.target.id).classList.contains('option-active') && document.getElementById('ds' + e.target.id.toString().slice(1)).classList.contains('option-active')) {
+
+                        document.getElementById(e.target.id).classList.add('option-active');
+                        document.getElementById('ds' + e.target.id.toString().slice(1)).classList.remove('option-active');
+
+                        //--------------->
+                        posts[parseInt(e.target.id.toString().slice(1))].liked = true;
+                        posts[parseInt(e.target.id.toString().slice(1))].disliked = false;
+                        //--------------->
+
+                        document.cookie = `post${itemCounter}liked=true;`;
+                        document.cookie = `post${itemCounter}disliked=false;`;
+
+                    } else {
+
+                        document.getElementById(e.target.id).classList.remove('option-active');
+
+                        //--------------->
+                        posts[parseInt(e.target.id.toString().slice(1))].liked = false;
+                        //--------------->
+
+                        document.cookie = `post${itemCounter}liked=false;`;
+                        document.cookie = `post${itemCounter}disliked=false;`;
+
+                    }
+                    if (posts[num].liked == true) {
+                        document.cookie = `post${num}liked=true;`;
+                        document.cookie = `post${num}disliked=false;`;
+                        console.log(`liked: ${getCookie(`post${num}liked`)}`);
+                        console.log(`disliked: ${getCookie(`post${num}disliked`)}`);
+                    } else {
+                        document.cookie = `post${num}liked=false;`;
+                        console.log(`liked: ${getCookie(`post${num}liked`)}`);
+                        console.log(`disliked: ${getCookie(`post${num}disliked`)}`);
+                    }
+
+                });
+
+                //creates div to hold thumbs up, down, and remove button
+                let newSmallDiv = document.createElement('div');
+                newSmallDiv.setAttribute('class', 'post-options');
+
+                //creates div to hold text, and newSmallDiv
+                let newDiv = document.createElement('div');
+                newDiv.setAttribute('class', 'content');
+                newDiv.setAttribute('id', 'd' + num);
+
+                //adds post number and post text to browser cookie, post like and dislike are false by default
+                addCookie(num, text);
+                console.log(`add-number: ${num}`);
+
+                //adds the inputed text to the new post and clears the text in the text area
+                let newP = document.createElement('p');
+                newP.innerHTML = text;
+                document.getElementById('input1').value = '';
+
+                //creates remove button and adds it to the main post div
+                let newButton = document.createElement('button');
+                newButton.setAttribute('class', 'general-btn');
+                newButton.innerHTML = "Remove";
+                newButton.setAttribute('id', 'i' + num);
+                newButton.addEventListener('click', function (e) {
+                    document.getElementById('content-c').removeChild(document.getElementById('d' + e.target.id.toString().slice(1)));
+                    removeCookie(parseInt(e.target.id.toString().slice(1)));
+                    posts[parseInt(e.target.id.toString().slice(1))] = null;
+                });
+
+                newSmallDiv.appendChild(thumbsup);//adding thumbs up to small div
+                newSmallDiv.appendChild(thumbsdown);//adding thumbs down to small div
+                newSmallDiv.appendChild(newButton);//adding remove button to small div
+                newDiv.appendChild(newP);//adds text to main post div
+                newDiv.appendChild(newSmallDiv);//adds small div to main div
+                document.getElementById('content-c').appendChild(newDiv);//adds post to page under the content-container
+            }
+            function newPreContent(num, text) {
+                var post = { postNum: num, postText: text, liked, disliked };
+                if(getCookie(`post${num}liked`) != ''){
+                    if(getCookie(`post${num}liked`) == 'true'){
+                        post.liked = true;
+                        post.disliked = false;
+                    }else{
+                        post.liked = false;
+                    }
+                }
+                if(getCookie(`post${num}disliked`) != ''){
+                    if(getCookie(`post${num}disliked`) == 'true'){
+                        post.disliked = true;
+                        post.liked = false;
+                    }else{
+                        post.disliked = false;
+                    }
+                }
+                posts.push(post);
+
+                //creates thumbs down img
+                let thumbsdown = document.createElement('img');
+                thumbsdown.src = 'thumbsdown.png';
+                thumbsdown.classList.add('option');
+                if(getCookie(`post${num}disliked`) != ''){
+                    if(getCookie(`post${num}disliked`) == 'true'){
+                        thumbsdown.classList.add('option-active');
+                    }
+                }
+                thumbsdown.id = 'ds' + num;
+
+                //creates thumbs up img
+                let thumbsup = document.createElement('img');
+                thumbsup.src = 'thumbsup.png';
+                thumbsup3.classList.add('option');
+                if(getCookie(`post${num}liked`) != ''){
+                    if(getCookie(`post${num}liked`) == 'true'){
+                        thumbsup.classList.add('option-active');
+                    }
+                }
+                thumbsup.id = 'l' + num;
+     
+                // create div to hold thumbs up, down, and remove button
+                let newSmallDiv = document.createElement('div');
+                newSmallDiv.setAttribute('class', 'post-options');
+
+                //creates div to hold text, and newSmallDiv
+                let newDiv = document.createElement('div');
+                newDiv.setAttribute('class', 'content');
+                newDiv.setAttribute('id', 'd' + num);
+
+                //adds the inputed text to the new post and clears the text in the text area
+                let newP = document.createElement('p');
+                newP.innerHTML = text;
+                document.getElementById('input1').value = '';
+
+                //creates remove button and adds it to the main post div
+                let newButton = document.createElement('button');
+                newButton.setAttribute('class', 'general-btn');
+                newButton.innerHTML = "Remove";
+                newButton.setAttribute('id', 'i' + num);
+                newButton.addEventListener('click', function(e) {
+                    document.getElementById('content-c').removeChild(document.getElementById('d' + e.target.id.toString().slice(1)));
+                    removeCookie(parseInt(e.target.id.toString().slice(1)));
+                    posts[parseInt(e.target.id.toString().slice(1))] = null;
+                });
+
+                newSmallDiv.appendChild(thumbsup);//adding thumbs up to small div
+                newSmallDiv.appendChild(thumbsdown);//adding thumbs down to small div
+                newSmallDiv.appendChild(newButton);//adding remove button to small div
+                newDiv.appendChild(newP);//adds text to main post div
+                newDiv.appendChild(newSmallDiv);//adds small div to main div
+                document.getElementById('content-c').appendChild(newDiv);//adds post to page under the content-container
+            }
+
+            function addElement() {
+                if (document.getElementById('input1').value != '') {
+                    if (!hasPosted) {
+                        newContent(itemCounter, document.getElementById('input1').value);
+                        itemCounter++;
+                        document.cookie = `itemcounter=${itemCounter}`;
+                    }
+                    hasPosted = true;
+                    startTimeout(10, hasPosted);
+                }
+            }
+
+            function startTimeout(num) {
+                setTimeout(() => {
+                    hasPosted = false;
+                }, num);//set to 20000
+            }
+
+            function addCookie(num, text) {
+                console.log(`num: ${num}`);
+                console.log(`text: ${text}`);
+                var cookieText = `post${num}text=${text}`;
+                var cookieLiked = `post${num}liked=false`;
+                var cookieDisliked = `post${num}disliked=false`;
+                document.cookie = `${cookieText};${cookieLiked};${cookieDisliked};itemcounter=0;expires=thu, 01 jan 3000 00:00:00 PCT`;
+                readCookies(num, 'text');
+            }
+
+            function readCookies(num, cname) {
+                let name = `post${num}${cname}`;
+                console.log(`name from read: ${getCookie(name)}`);
+                //Commit big brain
+            }
+
+            function getCookie(cname) {
+                var name = `${cname}=`;
+                var decodedCookie = decodeURIComponent(document.cookie);
+                var ca = decodedCookie.split(';');
+                for (var i = 0; i < ca.length; i++) {
+                    var c = ca[i];
+                    while (c.charAt(0) == ' ') {
+                        c = c.substring(1);
+                    }
+                    if (c.indexOf(name) == 0) {
+                        return c.substring(name.length, c.length);
+                    }
+                }
+                return "";
+            }
+
+            function start() {
+                setTimeout(() => {
+                    document.getElementById('betablink').style.opacity = 0;
+                    stop();
+                }, 2000);
+            }
+            function stop() {
+                setTimeout(() => {
+                    document.getElementById('betablink').style.opacity = 1;
+                    start();
+                }, 1000)
+            }
+
+            function removeCookie(num) {
+                document.cookie = `post${num}text=;`;
+                document.cookie = `post${num}liked=;`;
+                document.cookie = `post${num}disliked=;`;
+                console.log('cleared');
+            }
+
+            function resetCounter(){
+                document.cookie = 'itemcounter=0;'
+                console.log(`reset: ${getCookie('itemcounter')}`);
+            }
+
+            //--------------------------------------------------------------> this is an arrow
+
+            if(getCookie('itemcounter') != ''){
+                itemCounter = parseInt(getCookie(`itemcounter`));
+            }else{
+                itemCounter = 0;
+            }
+            console.log(`itemcounter: ${itemCounter}`);
+            for(let i = 0; i < itemCounter; i++) {
+                if(getCookie(`post${i}text`) != ''){
+                    newContent(i, getCookie(`post${i}text`));
+                    console.log(getCookie(`post${i}text`));
+                    console.log(getCookie(`post${i}liked`));
+                    console.log(getCookie(`post${i}disliked`));
+                }
+            }
+            start();
+        </script>
+    </body>
+</html>
