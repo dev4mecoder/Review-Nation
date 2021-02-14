@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Review Nation</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="logo.png">
+</head>
+
+<body>
+    <a name="top">
+        <div class="navbar" id="navbar">
+            <a class="nav-item" target="_self" href="/index.html">Home</a>
+            <a class="nav-item active" target="_self" href="/about.html">About</a>
+            <a class="nav-item" target="_self" href="/feed.html">Product Feed</a>
+            <a class="nav-item" target="_self" href="/developers.html" class="right">Developers</a>
+            <a class="nav-item" target="_self" href="/travelfromhome.html" class="right">Exclusive!</a>
+            <a class="nav-item" target="_self" id="name" href="/reviewnation.html">Review Nation</a>
+            <a class="nav-item" target="_self" href="/login.html" class="right">Log In</a>
+            <a class="nav-item" target="_self" href="/signup.html" class="right">Signup</a>
+            <img src="logo.png" href="developers.html" class="logo">
+        </div>
+        <div class="content-container bg">
+            <br>
+            <div class="content">
+                <h1 class="heading">The Best Way to Compare Locations...</h1>
+                <p>Use this to compare locations for where you wish to go for vacation!</p>
+            </div>
+            <br>
+            <div class="content">
+                <h1 class="heading">Write your own reviews!</h1>
+                <p>If you have an account, write reviews about anything! Apps, Products, Places, and more! </p>
+            </div>
+            <br>
+            <div class="content">
+                <h1 class="heading">Compare Apps!</h1>
+                <p>Use the various reviews of apps to see which apps are better!</p>
+            </div>
+            <br>
+            <div class="content">
+                <h1 class="heading">For a limited time: Check out TravelFromHome!</h1>
+                <p><a href="travelfromhome.html">TravelFromHome</a> is a COVID-19 exclusive and is only availablefor a
+                    limited time</p>
+            </div>
+            <br>
+            <div class="content">
+                <h1 class="heading">Need Help?</h1>
+                <p>Contact Us! Contact <a href="#">Here!</a></p>
+            </div>
+            <br>
+        </div>
+        <footer>
+            <p class="beta" title="This website is currently in its beta testing version" id="betablink">BETA
+                TESTING</p>
+            <a id="link-no-style" href="#top"><button class="general-btn">top of page</button></a>
+            <div class="footer-row">
+                <div class="footer-column">
+                    <a class="footer-link" href="/patchnotes.html">Patch Notes</a>
+                    <a class="footer-link" href="/apache.html">License</a>
+                </div>
+            </div>
+            <p id="footer-text" style="margin: 5px">&copy;Review Nation 2021 under Apache 2.0. The logo affiliated
+                with Review Nation is trademarked. Review Nation is not responsible for user-posted content of
+                products and their related reviews.</p>
+        </footer>
+        <script>
+            start();
+            function start() {
+                setTimeout(() => {
+                    document.getElementById('betablink').style.opacity = 0;
+                    stop();
+                }, 2000);
+            }
+            function stop() {
+                setTimeout(() => {
+                    document.getElementById('betablink').style.opacity = 1;
+                    start();
+                }, 1000)
+            }
+        </script>
+</body>
+<script>
+</script>
+
+</html>
