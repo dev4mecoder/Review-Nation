@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="style.css">
+    <script defer src="login-page.js"></script>
+    <link rel="shortcut icon" href="logo.png">
+    <!----soon to be the official logo-->
+</head>
+
+<body>
+    <div class="navbar" id="navbar">
+        <a class="nav-item" target="_self" href="/index.html">Home</a>
+        <a class="nav-item" target="_self" href="/about.html">About</a>
+        <a class="nav-item" target="_self" href="/feed.html">Product Feed</a>
+        <a class="nav-item" target="_self" href="/developers.html" class="right">Developers</a>
+        <a class="nav-item" target="_self" href="/travelfromhome.html" class="right">Exclusive!</a>
+        <a class="nav-item" target="_self" id="name" href="/reviewnation.html">Review Nation</a>
+        <a class="nav-item active" target="_self" href="/login.html" class="right">Log In</a>
+        <a class="nav-item" target="_self" href="/signup.html" class="right">Signup</a>
+        <img src="logo.png" href="developers.html" class="logo">
+    </div>
+    <footer>
+        <p class="beta" title="This website is currently in its beta testing version" id="betablink">COMING SOON, IN THE
+            PROCESS OF DEVELOPING</p>
+        <a id="link-no-style" href="#top"><button class="general-btn">top of page</button></a>
+        <div class="footer-row">
+            <div class="footer-column">
+                <a class="footer-link" href="/patchnotes.html">Patch Notes</a>
+                <a class="footer-link" href="/apache.html">License</a>
+            </div>
+        </div>
+        <p id="footer-text" style="margin: 5px">&copy;Review Nation 2021 under Apache-2.0. The logo affiliated with
+            Review Nation is trademarked. Review Nation is not responsible for user-posted content of products and their
+            related reviews.</p>
+
+    </footer>
+    <script>
+        start();
+        function start() {
+            setTimeout(() => {
+                document.getElementById('betablink').style.opacity = 0;
+                stop();
+            }, 2000);
+        }
+        function stop() {
+            setTimeout(() => {
+                document.getElementById('betablink').style.opacity = 1;
+                start();
+            }, 800)
+        }
+    </script>
+</body>
+
+</html>
