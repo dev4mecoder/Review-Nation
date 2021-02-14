@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Review Nation</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="shortcut icon" href="logo.png">
+    <script src="https://kit.fontawesome.com/02f3e88b73.js" crossorigin="anonymous"></script>
+</head>
+
+<body id="body">
+    <a name="top">
+        <div class="navbar" id="navbar">
+            <a class="nav-item active" target="_self" href="/index.html">Home</a>
+            <a class="nav-item" target="_self" href="/about.html">About</a>
+            <a class="nav-item" target="_self" href="/feed.html">Product Feed</a>
+            <a class="nav-item" target="_self" href="/developers.html" class="right">Developers</a>
+            <a class="nav-item" target="_self" href="/travelfromhome.html" class="right">Exclusive!</a>
+            <a class="nav-item" target="_self" id="name" href="/reviewnation.html">Review Nation</a>
+            <a class="nav-item" target="_self" href="/login.html" class="right">Log In</a>
+            <a class="nav-item" target="_self" href="/signup.html" class="right">Signup</a>
+            <img src="logo.png" href="developers.html" class="logo">
+        </div>
+        <div class="content-container parallax" id="content-c">
+            <img class="main-logo" src="logo.png">
+            <div class="content">
+                <div class="disclaimer-wrap">
+                    <h3 class="disclaimer">DISCLAIMER</h3>
+                    <p class="disclaimer">Search function is under development</p>
+                </div>
+            </div>
+            <input class="content main-search" style="margin-top: 0;" id="mainSearch"
+                placeholder="Search Review Nation">
+        </div>
+        <footer>
+            <p class="beta" title="This website is currently in its beta testing version" id="betablink">BETA TESTING
+            </p>
+            <a id="link-no-style" href="#top"><button class="general-btn">top of page</button></a>
+            <div class="footer-row">
+                <div class="footer-column">
+                    <a class="footer-link" href="/patchnotes.html">Patch Notes</a>
+                    <a class="footer-link" href="/apache.html">License</a>
+                </div>
+            </div>
+            <p id="footer-text" style="margin: 5px">&copy;Review Nation 2021 under Apache-2.0. The logo affiliated with
+                Review Nation is trademarked. Review Nation is not responsible for user-posted content of products and
+                their related reviews.</p>
+        </footer>
+        <script>
+            let products = [];//list of products
+                start();
+            function start() {
+                setTimeout(() => {
+                    document.getElementById('betablink').style.opacity = 0;
+                    stop();
+                }, 2000);
+            }
+            function stop() {
+                setTimeout(() => {
+                    document.getElementById('betablink').style.opacity = 1;
+                    start();
+                }, 800)
+            }
+            addEventListener('keydown', function (e) {
+                var key = e.keyCode;
+                if (key == 13 && document.getElementById('mainSearch').value != '') {
+                    search();
+                }
+            });
+            function search() {
+
+            }
+        </script>
+</body>
